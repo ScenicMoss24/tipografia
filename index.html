@@ -1,190 +1,199 @@
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&display=swap');
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador de Tipografía Gótica</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&display=swap');
 
-  /* Contenedor Transparente */
-  .contenedor-simulador {
-    width: 100vw;
-    margin-left: calc(-50vw + 50%);
-    margin-right: calc(-50vw + 50%);
-    background: transparent; 
-    padding: 40px 0;
-    box-sizing: border-box;
-  }
+        /* Contenedor Transparente */
+        .contenedor-simulador {
+            width: 100%;
+            background: transparent; 
+            padding: 20px 0;
+            box-sizing: border-box;
+            font-family: sans-serif;
+        }
 
-  /* Folio - AHORA TRANSPARENTE */
-  .folio-blanco {
-    background: transparent; /* Antes era rgba(255, 255, 255, 0.95) */
-    border: 2px solid rgba(209, 209, 209, 0.5); /* Borde sutil */
-    min-height: 400px;
-    margin: 0 5% 30px 5%;
-    padding: 50px;
-    position: relative;
-    text-align: center;
-    line-height: 1.2;
-    white-space: pre-wrap;
-    word-break: break-all; 
-    overflow-wrap: break-word;
-  }
+        /* Folio - TRANSPARENTE */
+        .folio-blanco {
+            background: transparent; 
+            border: 2px solid rgba(209, 209, 209, 0.5); 
+            min-height: 300px;
+            margin: 0 5% 30px 5%;
+            padding: 40px;
+            position: relative;
+            text-align: center;
+            line-height: 1.2;
+            white-space: pre-wrap;
+            word-break: break-all; 
+            overflow-wrap: break-word;
+        }
 
-  .letra-gotica {
-    font-family: 'UnifrakturMaguntia', serif;
-    font-size: 85px; 
-    color: #1a1a1a;
-    display: inline-block;
-    animation: aparecer 0.1s ease-out;
-  }
+        .letra-gotica {
+            font-family: 'UnifrakturMaguntia', serif;
+            font-size: 70px; 
+            color: #1a1a1a;
+            display: inline-block;
+            animation: aparecer 0.1s ease-out;
+        }
 
-  @keyframes aparecer {
-    from { opacity: 0; transform: scale(1.1); }
-    to { opacity: 1; transform: scale(1); }
-  }
+        @keyframes aparecer {
+            from { opacity: 0; transform: scale(1.1); }
+            to { opacity: 1; transform: scale(1); }
+        }
 
-  .teclado-tactil {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(65px, 1fr));
-    gap: 12px;
-    background: rgba(26, 26, 26, 0.9); 
-    padding: 30px 5%;
-  }
+        .teclado-tactil {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
+            gap: 10px;
+            background: rgba(26, 26, 26, 0.9); 
+            padding: 20px 5%;
+            border-radius: 8px;
+        }
 
-  .tecla {
-    height: 70px;
-    background: #e5c167; 
-    border: none;
-    color: #1a1a1a;
-    font-family: 'UnifrakturMaguntia', serif;
-    font-size: 32px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    border-radius: 4px;
-    box-shadow: 0 5px 0 #b38f36;
-  }
+        .tecla {
+            height: 60px;
+            background: #e5c167; 
+            border: none;
+            color: #1a1a1a;
+            font-family: 'UnifrakturMaguntia', serif;
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border-radius: 4px;
+            box-shadow: 0 4px 0 #b38f36;
+        }
 
-  .tecla:active {
-    transform: translateY(4px);
-    box-shadow: 0 1px 0 #b38f36;
-  }
+        .tecla:active {
+            transform: translateY(2px);
+            box-shadow: 0 1px 0 #b38f36;
+        }
 
-  .btn-limpiar {
-    width: 90%;
-    margin: 20px 5%;
-    padding: 15px;
-    background: #2c2c2c;
-    color: white;
-    border: none;
-    font-weight: bold;
-    text-transform: uppercase;
-    cursor: pointer;
-    font-size: 16px;
-  }
+        .btn-limpiar {
+            width: 90%;
+            margin: 20px 5%;
+            padding: 12px;
+            background: #2c2c2c;
+            color: white;
+            border: none;
+            font-weight: bold;
+            text-transform: uppercase;
+            cursor: pointer;
+            font-size: 14px;
+            border-radius: 4px;
+        }
 
-  #placeholder {
-    color: #666; /* Un poco más oscuro para que se vea sobre el fondo */
-    font-size: 24px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 100%;
-    pointer-events: none;
-    font-family: sans-serif;
-  }
-</style>
+        #placeholder {
+            color: #666;
+            font-size: 20px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
 
 <div class="contenedor-simulador">
-  <div id="folio" class="folio-blanco">
-    <div id="placeholder">Escribe con el teclado o toca las letras...</div>
-  </div>
+    <div id="folio" class="folio-blanco">
+        <div id="placeholder">Escribe con el teclado o toca las letras...</div>
+    </div>
 
-  <div class="teclado-tactil">
-    <button class="tecla" onclick="escribir('A')">A</button>
-    <button class="tecla" onclick="escribir('B')">B</button>
-    <button class="tecla" onclick="escribir('C')">C</button>
-    <button class="tecla" onclick="escribir('D')">D</button>
-    <button class="tecla" onclick="escribir('E')">E</button>
-    <button class="tecla" onclick="escribir('F')">F</button>
-    <button class="tecla" onclick="escribir('G')">G</button>
-    <button class="tecla" onclick="escribir('H')">H</button>
-    <button class="tecla" onclick="escribir('I')">I</button>
-    <button class="tecla" onclick="escribir('J')">J</button>
-    <button class="tecla" onclick="escribir('K')">K</button>
-    <button class="tecla" onclick="escribir('L')">L</button>
-    <button class="tecla" onclick="escribir('M')">M</button>
-    <button class="tecla" onclick="escribir('N')">N</button>
-    <button class="tecla" onclick="escribir('O')">O</button>
-    <button class="tecla" onclick="escribir('P')">P</button>
-    <button class="tecla" onclick="escribir('Q')">Q</button>
-    <button class="tecla" onclick="escribir('R')">R</button>
-    <button class="tecla" onclick="escribir('S')">S</button>
-    <button class="tecla" onclick="escribir('T')">T</button>
-    <button class="tecla" onclick="escribir('U')">U</button>
-    <button class="tecla" onclick="escribir('V')">V</button>
-    <button class="tecla" onclick="escribir('W')">W</button>
-    <button class="tecla" onclick="escribir('X')">X</button>
-    <button class="tecla" onclick="escribir('Y')">Y</button>
-    <button class="tecla" onclick="escribir('Z')">Z</button>
-  </div>
+    <div class="teclado-tactil">
+        <!-- Generación de teclas -->
+        <button class="tecla" onclick="escribir('A')">A</button>
+        <button class="tecla" onclick="escribir('B')">B</button>
+        <button class="tecla" onclick="escribir('C')">C</button>
+        <button class="tecla" onclick="escribir('D')">D</button>
+        <button class="tecla" onclick="escribir('E')">E</button>
+        <button class="tecla" onclick="escribir('F')">F</button>
+        <button class="tecla" onclick="escribir('G')">G</button>
+        <button class="tecla" onclick="escribir('H')">H</button>
+        <button class="tecla" onclick="escribir('I')">I</button>
+        <button class="tecla" onclick="escribir('J')">J</button>
+        <button class="tecla" onclick="escribir('K')">K</button>
+        <button class="tecla" onclick="escribir('L')">L</button>
+        <button class="tecla" onclick="escribir('M')">M</button>
+        <button class="tecla" onclick="escribir('N')">N</button>
+        <button class="tecla" onclick="escribir('O')">O</button>
+        <button class="tecla" onclick="escribir('P')">P</button>
+        <button class="tecla" onclick="escribir('Q')">Q</button>
+        <button class="tecla" onclick="escribir('R')">R</button>
+        <button class="tecla" onclick="escribir('S')">S</button>
+        <button class="tecla" onclick="escribir('T')">T</button>
+        <button class="tecla" onclick="escribir('U')">U</button>
+        <button class="tecla" onclick="escribir('V')">V</button>
+        <button class="tecla" onclick="escribir('W')">W</button>
+        <button class="tecla" onclick="escribir('X')">X</button>
+        <button class="tecla" onclick="escribir('Y')">Y</button>
+        <button class="tecla" onclick="escribir('Z')">Z</button>
+    </div>
 
-  <button class="btn-limpiar" onclick="borrarTodo()">Limpiar Folio (Supr)</button>
+    <button class="btn-limpiar" onclick="borrarTodo()">Limpiar Folio (Supr)</button>
 </div>
 
 <script>
-  // Evitar duplicados y funciones globales
-  if (!window.simuladorEscrituraOk) {
-    window.simuladorEscrituraOk = true;
+    if (!window.simuladorEscrituraOk) {
+        window.simuladorEscrituraOk = true;
 
-    window.escribir = function(letra) {
-      const folio = document.getElementById('folio');
-      const placeholder = document.getElementById('placeholder');
-      if (placeholder) placeholder.style.display = 'none';
+        window.escribir = function(letra) {
+            const folio = document.getElementById('folio');
+            const placeholder = document.getElementById('placeholder');
+            if (placeholder) placeholder.style.display = 'none';
 
-      if (letra === 'ENTER') {
-        folio.appendChild(document.createElement('br'));
-      } else {
-        const span = document.createElement('span');
-        span.className = 'letra-gotica';
-        span.innerText = letra === ' ' ? '\u00A0' : letra;
-        folio.appendChild(span);
-      }
-    };
+            if (letra === 'ENTER') {
+                folio.appendChild(document.createElement('br'));
+            } else {
+                const span = document.createElement('span');
+                span.className = 'letra-gotica';
+                span.innerText = letra === ' ' ? '\u00A0' : letra;
+                folio.appendChild(span);
+            }
+        };
 
-    window.borrarUltima = function() {
-      const folio = document.getElementById('folio');
-      if (folio && folio.lastChild && folio.lastChild.id !== 'placeholder') {
-        folio.removeChild(folio.lastChild);
-      }
-      if (folio && folio.childNodes.length <= 1) {
-        const ph = document.getElementById('placeholder');
-        if (ph) ph.style.display = 'block';
-      }
-    };
+        window.borrarUltima = function() {
+            const folio = document.getElementById('folio');
+            if (folio && folio.lastChild && folio.lastChild.id !== 'placeholder') {
+                folio.removeChild(folio.lastChild);
+            }
+            if (folio && (folio.childNodes.length <= 1 || (folio.childNodes.length === 2 && folio.firstChild.id === 'placeholder'))) {
+                const ph = document.getElementById('placeholder');
+                if (ph) ph.style.display = 'block';
+            }
+        };
 
-    window.borrarTodo = function() {
-      const folio = document.getElementById('folio');
-      if (folio) {
-        folio.innerHTML = '<div id="placeholder">Escribe con el teclado o toca las letras...</div>';
-      }
-    };
+        window.borrarTodo = function() {
+            const folio = document.getElementById('folio');
+            if (folio) {
+                folio.innerHTML = '<div id="placeholder">Escribe con el teclado o toca las letras...</div>';
+            }
+        };
 
-    const manejarTeclado = function(event) {
-      const tecla = event.key.toUpperCase();
-      if (tecla.length === 1 && tecla >= 'A' && tecla <= 'Z') {
-        window.escribir(tecla);
-      } else if (event.key === 'Enter') {
-        event.preventDefault();
-        window.escribir('ENTER');
-      } else if (event.key === ' ') {
-        event.preventDefault(); 
-        window.escribir(' ');
-      } else if (event.key === 'Backspace') {
-        window.borrarUltima();
-      } else if (event.key === 'Delete') {
-        window.borrarTodo();
-      }
-    };
-
-    document.addEventListener('keydown', manejarTeclado);
-  }
+        document.addEventListener('keydown', function(event) {
+            const tecla = event.key.toUpperCase();
+            if (tecla.length === 1 && tecla >= 'A' && tecla <= 'Z') {
+                window.escribir(tecla);
+            } else if (event.key === 'Enter') {
+                event.preventDefault();
+                window.escribir('ENTER');
+            } else if (event.key === ' ') {
+                event.preventDefault(); 
+                window.escribir(' ');
+            } else if (event.key === 'Backspace') {
+                window.borrarUltima();
+            } else if (event.key === 'Delete') {
+                window.borrarTodo();
+            }
+        });
+    }
 </script>
+
+</body>
+</html>
